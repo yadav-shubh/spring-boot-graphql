@@ -1,0 +1,58 @@
+###
+GRAPHQL http://localhost:8080/graphql
+
+query  {
+    users {
+        id
+        name
+        email
+        address {
+            id
+            city
+            street
+            state
+            zipCode
+        }
+        categories {
+            id
+            name
+            description
+        }
+    }
+}
+
+###
+GRAPHQL http://localhost:8080/graphql
+
+mutation  createUser($user: UserInput) {
+    createUser(user: $user) {
+        id
+        name
+        email
+        address {
+            id
+            city
+            state
+            street
+            zipCode
+        }
+        categories {
+            id
+            name
+            description
+        }
+    }
+}
+
+{
+  "user": {
+    "name": "Shubham",
+    "email": "shubham@gmail.com",
+    "categories": [
+      {
+        "name": "UG User",
+        "description": "This is UG user"
+      }
+    ]
+  }
+}

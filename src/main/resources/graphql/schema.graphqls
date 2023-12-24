@@ -1,0 +1,61 @@
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  address: Address
+  categories: [Category]
+}
+
+type Address {
+  id: ID!
+  street: String!
+  city: String!
+  state: String!
+  zipCode: String!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Query {
+  users: [User]
+  user(id: ID!): User
+  addresses: [Address!]!
+  address(id: ID!): Address
+  categories: [Category!]!
+  category(id: ID!): Category
+}
+
+input UserInput {
+  name: String!
+  email: String!
+  address: AddressInput
+  categories: [CategoryInput!]!
+}
+
+input AddressInput {
+  street: String!
+  city: String!
+  state: String!
+  zipCode: String!
+}
+
+input CategoryInput {
+  name: String!
+  description: String
+}
+
+type Mutation {
+  createUser(user: UserInput): User
+  updateUser(id: ID!, input: UserInput!): User!
+  deleteUser(id: ID!): User
+  createAddress(input: AddressInput!): Address!
+  updateAddress(id: ID!, input: AddressInput!): Address!
+  deleteAddress(id: ID!): Address
+  createCategory(input: CategoryInput!): Category!
+  updateCategory(id: ID!, input: CategoryInput!): Category!
+  deleteCategory(id: ID!): Category
+}

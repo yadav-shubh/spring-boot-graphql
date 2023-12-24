@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      host: localhost  # Replace with your MongoDB server host
+      port: 27017  # Replace with your MongoDB server port
+      database: mydatabase  # Replace with your database name
+      username: root  # Optional, if authentication is enabled
+      password: root  # Optional, if authentication is enabled
+      authentication-database: admin  # Optional, if authentication database differs
+      uri: mongodb://localhost:27017/mydatabase  # Alternative for full connection string
+
+      # Optional settings:
+      auto-index-creation: true  # Enable automatic index creation
