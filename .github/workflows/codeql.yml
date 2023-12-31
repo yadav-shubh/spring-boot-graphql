@@ -42,6 +42,5 @@ jobs:
       with:
         threads: 4
         ram: 14567
-        completion-timeout: 120
-        query-languages: java
+
 
