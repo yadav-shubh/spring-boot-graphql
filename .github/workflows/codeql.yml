@@ -18,6 +18,13 @@ jobs:
       contents: read
       security-events: write
 
+    strategy:
+      fail-fast: false
+      matrix:
+        # Override automatic language detection by changing the list below.
+        # Supported options are listed in a comment in the default workflow.
+        language: ['java-kotlin']
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -35,12 +42,10 @@ jobs:
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
-        languages: java
+        languages: ${{ matrix.language }}
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
       with:
         threads: 4
         ram: 14567
-
-
