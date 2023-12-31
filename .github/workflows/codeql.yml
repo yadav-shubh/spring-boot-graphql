@@ -2,50 +2,39 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
   schedule:
-    - cron: '21 0 * * 3'
+    - cron: '15 5 * * 3'
 
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    timeout-minutes: 360
     permissions:
-      actions: read
-      contents: read
       security-events: write
+      actions: read
 
     strategy:
       fail-fast: false
       matrix:
-        # Override automatic language detection by changing the list below.
-        # Supported options are listed in a comment in the default workflow.
-        language: ['java-kotlin']
+        language: [java-kotlin]
+
+    # Specify the container in which actions will run
+    container:
+      image: codeql-container:f0f91db
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: '21'
-
-    - name: Build Spring Boot app
-      run: |
-        ./mvnw clean install -DskipTests
-
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        languages: ${{ matrix.language }}
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
-      with:
-        threads: 4
-        ram: 14567
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+      - name: Build
+        run: |
+          ./configure
+          make
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
