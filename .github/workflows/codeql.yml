@@ -20,7 +20,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v2
 
     - name: Set up JDK
       uses: actions/setup-java@v2
@@ -33,12 +33,13 @@ jobs:
         ./mvnw clean install -DskipTests
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
+      uses: github/codeql-action/init@v4
       with:
         languages: java
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
+      uses: github/codeql-action/analyze@v4
       with:
-        category: "/language:java"
-
+        threads: 4
+        ram: 14567
+        completion-timeout: 120
