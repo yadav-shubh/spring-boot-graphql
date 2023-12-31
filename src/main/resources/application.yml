@@ -11,3 +11,6 @@ spring:
 
       # Optional settings:
       auto-index-creation: true  # Enable automatic index creation
+  threads:
+    virtual:
+      enabled: true

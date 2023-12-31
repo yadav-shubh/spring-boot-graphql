@@ -7,6 +7,9 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -17,6 +20,21 @@ public class UserController {
 
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+
+    @PostMapping("/users/all")
+    public String createUser(@RequestBody User user) throws InterruptedException {
+        Thread.sleep(1000);
+        System.out.println("Running " + Thread.currentThread().toString());
+        return "after 1 second";
+    }
+
+    @GetMapping("/users/all")
+    public String getAllUsers() throws InterruptedException {
+        Thread.sleep(1000);
+        System.out.println("Running " + Thread.currentThread());
+        return "after 1 second";
     }
 
     @QueryMapping("users")

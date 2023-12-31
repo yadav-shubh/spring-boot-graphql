@@ -4,20 +4,6 @@ GRAPHQL http://localhost:8080/graphql
 query  {
     users {
         id
-        name
-        email
-        address {
-            id
-            city
-            street
-            state
-            zipCode
-        }
-        categories {
-            id
-            name
-            description
-        }
     }
 }
 
