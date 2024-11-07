@@ -2,6 +2,8 @@ package com.shubham.controller;
 
 import com.shubham.model.HousingLocation;
 import com.shubham.repository.HousingLocationRepository;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,17 +20,27 @@ public class HousingLocationController {
         this.housingLocationRepository = housingLocationRepository;
     }
 
-    @RequestMapping("/housing-locations")
+    @GetMapping("/housing-locations")
     public List<HousingLocation> getAllHousingLocations(@RequestParam(value = "query", required = false) String query) {
         if (StringUtils.hasLength(query)) {
             return housingLocationRepository.findAllByCityContaining(query);
         } else {
-            return housingLocationRepository.findAll().subList(0, 4);
+            return housingLocationRepository.findAll();
         }
     }
 
     @RequestMapping("/housing-locations/{id}")
-    public HousingLocation findOne(@PathVariable String id) {
+    public HousingLocation findById(@PathVariable String id) {
+        return housingLocationRepository.findById(id).orElse(null);
+    }
+
+    @QueryMapping("housingLocations")
+    public List<HousingLocation> findAll() {
+        return housingLocationRepository.findAll();
+    }
+
+    @QueryMapping("housingLocation")
+    public HousingLocation findOne(@Argument String id) {
         return housingLocationRepository.findById(id).orElse(null);
     }
 }

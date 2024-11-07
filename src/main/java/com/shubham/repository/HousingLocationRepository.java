@@ -8,4 +8,5 @@ import java.util.List;
 public interface HousingLocationRepository extends MongoRepository<HousingLocation, String> {
 
     List<HousingLocation> findAllByCityContaining(String query);
+
 }
